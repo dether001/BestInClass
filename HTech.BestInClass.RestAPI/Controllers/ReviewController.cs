@@ -2,29 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BestinClass.Core.Application_Service.Service;
-using BestinClass.Core.Entity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BestinClass.RestApi.Controllers
+namespace HTech.BestInClass.RestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TestEntityController : ControllerBase
+    public class ValuesController : ControllerBase
     {
-
-        private readonly ITestEntityService _testEntityService;
-
-        public TestEntityController(ITestEntityService testEntityService)
-        {
-            _testEntityService = testEntityService;
-        }
-        
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<TestEntity>> Get()
+        public ActionResult<IEnumerable<string>> Get()
         {
-            return _testEntityService.GetAllTestEntites();
+            return new string[] {"value1", "value2"};
         }
 
         // GET api/values/5

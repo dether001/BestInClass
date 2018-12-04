@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace BestinClass.RestApi
+namespace HTech.BestInClass.RestAPI
 {
     public class Program
     {
