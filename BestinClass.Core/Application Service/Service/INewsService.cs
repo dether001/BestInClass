@@ -5,6 +5,7 @@ namespace BestinClass.Core.Application_Service.Service
 {
     public interface INewsService
     {
+        //CREATE
         News NewNews(string header, string picture, string shortDesc, string body, string tags);
         News CreateNews(News news);
         

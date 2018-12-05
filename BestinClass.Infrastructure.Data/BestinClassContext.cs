@@ -16,5 +16,7 @@ namespace BestinClass.Infrastructure.Data
         public DbSet<TestEntity> TestEntity { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Car> Car { get; set; }
+        public DbSet<Review> Review { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace BestinClass.Core.Domain_Service
         //READ
         IEnumerable<News> ReadAllNews();
 
-        News GetNewsByid(int id);
+        News GetNewsById(int id);
 
         //UPDATE
         News UpdateNews(News newsUpdate);

@@ -42,7 +42,7 @@ namespace BestinClass.Core.Application_Service.Impl
 
         public News GetNewsById(int id)
         {
-            return _newsRepository.GetNewsByid(id);
+            return _newsRepository.GetNewsById(id);
         }
 
         public News UpdateNews(News newsUpdate)

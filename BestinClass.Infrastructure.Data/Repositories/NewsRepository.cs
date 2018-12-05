@@ -27,7 +27,7 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return _ctx.News;
         }
 
-        public News GetNewsByid(int id)
+        public News GetNewsById(int id)
         {
             return _ctx.News
                 .FirstOrDefault(n => n.Id == id);
