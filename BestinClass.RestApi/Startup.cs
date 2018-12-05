@@ -72,6 +72,8 @@ namespace BestinClass.RestApi
             services.AddScoped<ITestEntityRepository, TestEntityRepository>();
             services.AddScoped<ITestEntityService, TestEntityService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<INewsRepository, NewsRepository>();
             services.AddScoped<IUserService, UserService>();
 
 

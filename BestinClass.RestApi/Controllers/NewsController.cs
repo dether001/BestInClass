@@ -13,7 +13,7 @@ namespace BestinClass.RestApi.Controllers
     {
         private readonly INewsService _newsService;
 
-        public NewsController(NewsService newsService)
+        public NewsController(INewsService newsService)
         {
             _newsService = newsService;
         }
