@@ -32,7 +32,7 @@ namespace BestinClass.Core.Application_Service.Impl
         {
             return _carRepository.CreateCar(car);
         }
-
+        
         public List<Car> GetAllCars()
         {
             return _carRepository.ReadAllCars().ToList();
