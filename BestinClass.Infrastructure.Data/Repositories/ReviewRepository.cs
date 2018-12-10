@@ -43,7 +43,7 @@ namespace BestinClass.Infrastructure.Data.Repositories
 
         public Review UpdateReview(Review reviewUpdate)
         {
-            _ctx.Attach(reviewUpdate).State = EntityState.Added;
+            _ctx.Attach(reviewUpdate).State = EntityState.Modified;
             _ctx.SaveChanges();
             return reviewUpdate;
         }
