@@ -18,9 +18,10 @@ namespace BestinClass.Infrastructure.Data.Repositories
         
         public Review CreateReview(Review review)
         {
-            _ctx.Attach(review).State = EntityState.Added;
+            _ctx.Attach(review.Car);
+            var saved = _ctx.Review.Add(review).Entity;
             _ctx.SaveChanges();
-            return review;
+            return saved;
         }
 
         public IEnumerable<Review> ReadAllReviews()

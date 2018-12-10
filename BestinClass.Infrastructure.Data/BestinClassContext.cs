@@ -25,16 +25,10 @@ namespace BestinClass.Infrastructure.Data
                 .HasMany(c => c.Reviews)
                 .WithOne();
                 */
-            modelBuilder.Entity<CarReview>()
-                .HasKey(cr => new {cr.CarId, cr.ReviewId});
-            modelBuilder.Entity<CarReview>()
-                .HasOne(cr => cr.Car)
-                .WithMany(c => c.CarReviews)
-                .HasForeignKey(cr => cr.CarId);
-            modelBuilder.Entity<CarReview>()
-                .HasOne(cr => cr.Review)
-                .WithMany(r => r.CarReviews)
-                .HasForeignKey(cr => cr.ReviewId);
+            modelBuilder.Entity<Car>()
+                .HasMany(c => c.Reviews)
+                .WithOne(r => r.Car)
+                .OnDelete(DeleteBehavior.SetNull);
         }
         
         public DbSet<TestEntity> TestEntity { get; set; }

@@ -5,8 +5,8 @@ namespace BestinClass.Core.Entity
     public class Review
     {
         public int Id { get; set; }
-        public List<CarReview> CarReviews { get; set; }
-        //public int CarId { get; set; }
+        //public List<CarReview> CarReviews { get; set; }
+        public Car Car { get; set; }
         public string Header { get; set; }
         public string Body { get; set; }
         public int RatingEveryday { get; set; }

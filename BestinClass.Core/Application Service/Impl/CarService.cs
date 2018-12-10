@@ -16,7 +16,7 @@ namespace BestinClass.Core.Application_Service.Impl
             _carRepository = carRepository;
         }
         
-        public Car NewCar(string make, string model, int year, string type)
+        public Car NewCar(string make, string model, int year, string type, List<Review> reviews)
         {
             var car = new Car()
             {
@@ -24,6 +24,7 @@ namespace BestinClass.Core.Application_Service.Impl
                 Model = model,
                 Year = year,
                 Type = type,
+                Reviews = reviews
             };
 
             return car;

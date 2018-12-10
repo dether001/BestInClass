@@ -30,24 +30,13 @@ namespace BestinClass.Infrastructure.Data.Repositories
         public Car GetCarByIdIncludeReviews(int id)
         {
             var currCar =_ctx.Car
-                .Include(c => c.CarReviews)
-                    .ThenInclude(cr => cr.Review)
+                .Include(c => c.Reviews)
                 .FirstOrDefault(c => c.Id == id);
             return currCar;
         }
 
         public Car AddReviewToCar(int id, Review review)
         {
-            /*var sCar = _ctx.Car.Find(id);
-            sCar.CarReviews.Add(new Review();
-            context.SaveChanges();*/
-
-            return null;
-        }
-
-        public Car ReviewACar(Car car, Review review)
-        {
-            //car.Reviews.Add(review);
             return null;
         }
 
