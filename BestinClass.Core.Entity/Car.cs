@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+
 namespace BestinClass.Core.Entity
 {
     public class Car
@@ -7,5 +10,6 @@ namespace BestinClass.Core.Entity
         public string Model { get; set; }
         public int Year { get; set; }
         public string Type { get; set; }
+        public List<CarReview> CarReviews { get; set; }
     }
 }

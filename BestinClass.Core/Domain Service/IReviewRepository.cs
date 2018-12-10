@@ -10,7 +10,7 @@ namespace BestinClass.Core.Domain_Service
 
         //READ
         IEnumerable<Review> ReadAllReviews();
-
+        IEnumerable<Review> ReadReviewsByCarId(int carId);
         Review GetReviewById(int id);
 
         //UPDATE

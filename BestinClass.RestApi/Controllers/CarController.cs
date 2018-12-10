@@ -1,0 +1,54 @@
+using System.Collections.Generic;
+using BestinClass.Core.Application_Service.Service;
+using BestinClass.Core.Entity;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BestinClass.RestApi.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CarController : Controller
+    {
+        private readonly ICarService _carService;
+
+        public CarController(ICarService carService)
+        {
+            _carService = carService;
+        }
+        
+        //GET api/car
+        [HttpGet]
+        public ActionResult<IEnumerable<Car>> Get()
+        {
+            return _carService.GetAllCars();
+        }
+        
+        // GET api/car/2
+        [HttpGet("{id}")]
+        public ActionResult<Car> Get(int id)
+        {
+            return _carService.GetCarByIdIncludeReviews(id);
+        }
+        
+        // POST api/car
+        [HttpPost]
+        public ActionResult<Car> Post([FromBody] Car car)
+        {
+            return _carService.CreateCar(car);
+        }
+        
+        // PUT api/car/3
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] Car carUpdate)
+        {
+            _carService.UpdateCar(carUpdate);
+        }
+        
+        // DELETE api/car/4
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            _carService.DeleteCar(id);
+        }
+    }
+}

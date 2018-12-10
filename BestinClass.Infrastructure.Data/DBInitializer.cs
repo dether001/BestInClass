@@ -21,6 +21,28 @@ namespace BestinClass.Infrastructure.Data
                 IntTest = 42,
                 
             }).Entity;
+
+            var testCar1 = ctx.Car.Add(new Car()
+            {
+                Make = "BMW",
+                Model = "3 series",
+                Year = 2008,
+                Type = "Sedan"
+                
+            }).Entity;
+
+            var testReview = ctx.Review.Add(new Review()
+            {
+                Header = "Cool daily driver",
+                Body = "Used it for a few years, holds up good as new!",
+                //Car = testCar1,
+                RatingEveryday = 5,
+                RatingExterior = 4,
+                RatingInterior = 3,
+                RatingPracticality = 3,
+                RatingWeekend = 5
+                
+            }).Entity;
             
             var userAdmin = ctx.User.Add(new User()
             {

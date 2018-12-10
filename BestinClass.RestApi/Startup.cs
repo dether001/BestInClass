@@ -75,6 +75,10 @@ namespace BestinClass.RestApi
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<INewsRepository, NewsRepository>();
+            services.AddScoped<ICarService, CarService>();
+            services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
 
 
 

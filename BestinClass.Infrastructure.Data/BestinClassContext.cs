@@ -1,5 +1,6 @@
 using BestinClass.Core.Entity;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 
 namespace BestinClass.Infrastructure.Data
 {
@@ -10,7 +11,30 @@ namespace BestinClass.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*modelBuilder.Entity<Review>()
+                .HasOne(r => r.Car)
+                .WithMany(c => c.Reviews)
+                .IsRequired();
 
+            modelBuilder.Entity<Car>()
+                .HasMany(c => c.Reviews)
+                .WithOne(r => r.Car)
+                .OnDelete(DeleteBehavior.SetNull);
+                
+            modelBuilder.Entity<Car>()
+                .HasMany(c => c.Reviews)
+                .WithOne();
+                */
+            modelBuilder.Entity<CarReview>()
+                .HasKey(cr => new {cr.CarId, cr.ReviewId});
+            modelBuilder.Entity<CarReview>()
+                .HasOne(cr => cr.Car)
+                .WithMany(c => c.CarReviews)
+                .HasForeignKey(cr => cr.CarId);
+            modelBuilder.Entity<CarReview>()
+                .HasOne(cr => cr.Review)
+                .WithMany(r => r.CarReviews)
+                .HasForeignKey(cr => cr.ReviewId);
         }
         
         public DbSet<TestEntity> TestEntity { get; set; }

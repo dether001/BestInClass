@@ -15,12 +15,11 @@ namespace BestinClass.Core.Application_Service.Impl
             _reviewRepository = reviewRepository;
         }
         
-        public Review NewReview(int carId, string header, string body, int ratingEveryday, int ratingWeekend, int ratingPracticality,
+        public Review NewReview(Car car, string header, string body, int ratingEveryday, int ratingWeekend, int ratingPracticality,
             int ratingExterior, int ratingInterior)
         {
             var review = new Review()
             {
-                CarId = carId,
                 Header = header,
                 Body = body,
                 RatingEveryday = ratingEveryday,
@@ -36,12 +35,20 @@ namespace BestinClass.Core.Application_Service.Impl
 
         public Review CreateReview(Review review)
         {
+            float allRatings = (review.RatingEveryday + review.RatingWeekend + review.RatingPracticality +
+                                review.RatingExterior + review.RatingInterior);
+            review.RatingOverall = allRatings / 5;
             return _reviewRepository.CreateReview(review);
         }
 
         public List<Review> GetAllReviews()
         {
             return _reviewRepository.ReadAllReviews().ToList();
+        }
+
+        public List<Review> GetReviewsByCar(int carId)
+        {
+            return _reviewRepository.ReadReviewsByCarId(carId).ToList();
         }
 
         public Review GetReviewById(int id)

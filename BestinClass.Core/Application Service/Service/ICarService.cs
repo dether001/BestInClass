@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using BestinClass.Core.Entity;
 
@@ -12,9 +13,11 @@ namespace BestinClass.Core.Application_Service.Service
         //READ
         List<Car> GetAllCars();
         Car GetCarById(int id);
+        Car GetCarByIdIncludeReviews(int id);
 
         //UPDATE
         Car UpdateCar(Car carUpdate);
+        Car AddReviewToCar(int id, Review review);
 
         //DELETE
         void DeleteCar(int id);

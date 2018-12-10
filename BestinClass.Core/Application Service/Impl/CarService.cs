@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using BestinClass.Core.Application_Service.Service;
@@ -22,7 +23,7 @@ namespace BestinClass.Core.Application_Service.Impl
                 Make = make,
                 Model = model,
                 Year = year,
-                Type = type
+                Type = type,
             };
 
             return car;
@@ -43,9 +44,19 @@ namespace BestinClass.Core.Application_Service.Impl
             return _carRepository.GetCarById(id);
         }
 
+        public Car GetCarByIdIncludeReviews(int id)
+        {
+            return _carRepository.GetCarByIdIncludeReviews(id);
+        }
+
         public Car UpdateCar(Car carUpdate)
         {
             return _carRepository.UpdateCar(carUpdate);
+        }
+
+        public Car AddReviewToCar(int id, Review review)
+        {
+            return _carRepository.AddReviewToCar(id, review);
         }
 
         public void DeleteCar(int id)

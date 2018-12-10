@@ -27,6 +27,30 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return _ctx.Car;
         }
 
+        public Car GetCarByIdIncludeReviews(int id)
+        {
+            var currCar =_ctx.Car
+                .Include(c => c.CarReviews)
+                    .ThenInclude(cr => cr.Review)
+                .FirstOrDefault(c => c.Id == id);
+            return currCar;
+        }
+
+        public Car AddReviewToCar(int id, Review review)
+        {
+            /*var sCar = _ctx.Car.Find(id);
+            sCar.CarReviews.Add(new Review();
+            context.SaveChanges();*/
+
+            return null;
+        }
+
+        public Car ReviewACar(Car car, Review review)
+        {
+            //car.Reviews.Add(review);
+            return null;
+        }
+
         public Car GetCarById(int id)
         {
             return _ctx.Car

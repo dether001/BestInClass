@@ -10,11 +10,12 @@ namespace BestinClass.Core.Domain_Service
 
         //READ
         IEnumerable<Car> ReadAllCars();
-
+        Car GetCarByIdIncludeReviews(int id);
         Car GetCarById(int id);
 
         //UPDATE
         Car UpdateCar(Car carUpdate);
+        Car AddReviewToCar(int id, Review review);
 
         //DELETE
         Car DeleteCar(int id);
