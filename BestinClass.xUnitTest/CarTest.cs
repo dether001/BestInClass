@@ -5,20 +5,19 @@ using Xunit;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using BestinClass.Infrastructure.Data.Repositories;
-using System.Linq;
+using BestinClass.Core.Entity;
+using System.IO;
 
 namespace BestinClass.xUnitTest
 {
-    public class CarTest : IDisposable
+    public class CarTest
     {
-        SqliteConnection connection;
-        CarService carService;
+        readonly SqliteConnection connection;
+        readonly CarService carService;
 
         public CarTest()
         {
             connection = new SqliteConnection("DataSource=:memory:");
-
-            // In-memory database only exists while the connection is open
             connection.Open();
 
             // Initialize test database
@@ -26,33 +25,40 @@ namespace BestinClass.xUnitTest
                             .UseSqlite(connection).Options;
             var dbContext = new BestinClassContext(options);
             DBInitializer.SeedDB(dbContext);
-
-            // Create repositories and services
+            
             var carRepo = new CarRepository(dbContext);
             carService = new CarService(carRepo);
         }
 
-        public void Dispose()
-        {
-            // This will delete the in-memory database
-            connection.Close();
-        }
-
         #region GetCarsTests
         [Fact]
-        public void Test_GetCar()
+        public void Test_GetCarById()
         {
-            Assert.Null(carService.GetCarById(1));
-            var car = carService.NewCar("h", "g", 9, "f");
-            carService.CreateCar(car);
-            Assert.NotNull(carService.GetCarById(1));
+            var created = carService.CreateCar(carService.NewCar("h", "g", 1999, "f"));
+            Assert.Same(created, carService.GetCarById(created.Id));
+        }
+
+        [Fact]
+        public void TestGetCarByIdExceptions()
+        {
+            Assert.Throws<FileNotFoundException>(
+                () => carService.GetCarById(965656666));
+            Assert.Throws<FileNotFoundException>(
+                () => carService.GetCarById(-9656));
         }
 
         [Fact]
         public void Test_GetAllCars()
         {
-            var allCars = carService.GetAllCars();
-            Assert.Empty(allCars);
+            var created = carService.CreateCar(carService.NewCar("h", "f", 1995, "g"));
+            Assert.Contains(created, carService.GetAllCars());
+        }
+
+        [Fact]
+        public void Test_GetAllCarsExceptions()
+        {
+            Assert.Throws<FileNotFoundException>(
+            () => carService.GetAllCars());
         }
 
         #endregion
@@ -61,12 +67,38 @@ namespace BestinClass.xUnitTest
         [Fact]
         public void Test_CreateCar()
         {
-            Assert.Empty(carService.GetAllCars());
-            var car = carService.NewCar("h", "g", 9, "f");
-            carService.CreateCar(car);
-            Assert.NotEmpty(carService.GetAllCars());
-            Assert.Same(car, carService.GetCarById(1));
-            Assert.Single(carService.GetAllCars());
+            var created = carService.CreateCar(
+                carService.NewCar("hhhhh", "ggggg", 2000, "ttttttt"));
+            Assert.Same(created, carService.GetCarById(created.Id));
+        }
+
+        [Fact]
+        public void Test_CreateCarExceptions()
+        {
+            //Year property exceptions
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("g", "g", DateTime.Now.Year+1, "g")));
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("g", "g", 1878, "g")));
+
+            //Model property exceptions
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("g", "", 2000, "g")));
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("g", "bmkgbmgklbklgbmkglmbkmbklmbklgmfklbmgfkblgfkoooooobmkgbmgklbklgbmkglmbkmbklmbklgmfklbmgfkblgfkooooook", 2000, "g")));
+
+            //Make property exceptions
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("", "g", 2000, "g")));
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("bmkgbmgklbklgbmkglmbkmbklmbklgmfklbmgfkblgfkoooooobmkgbmgklbklgbmkglmbkmbklmbklgmfklbmgfkblgfkooooook", "g", 2000, "g")));
+            
+            //Type property exceptions
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("g", "g", 2000, "")));
+            Assert.Throws<InvalidDataException>(
+                () => carService.CreateCar(carService.NewCar("g", "g", 2000, "bmkgbmgklbklgbmkglmbkmbklmbklgmfklbmgfkblgfkoooooobmkgbmgklbklgbmkglmbkmbklmbklgmfklbmgfkblgfkooooook")));
+
         }
 
         #endregion
@@ -75,15 +107,21 @@ namespace BestinClass.xUnitTest
         [Fact]
         public void Test_DeleteCar()
         {
-            Assert.Empty(carService.GetAllCars());
-            var car1 = carService.NewCar("h", "g", 9, "f");
-            carService.CreateCar(car1);
-            Assert.Single(carService.GetAllCars());
-            //idk
-            carService.DeleteCar(1);
-            Assert.Empty(carService.GetAllCars());
+            var created = carService.CreateCar(
+                carService.NewCar("kkkkkk", "kkkkkk", 2000, "kkkkkk"));
+            Assert.Contains(created, carService.GetAllCars());
+            carService.DeleteCar(created.Id);
+            Assert.Throws<FileNotFoundException>(
+                () => carService.GetCarById(created.Id));
 
-            
+        }
+
+        #endregion
+
+        #region UpdateCarTests
+        [Fact]
+        public void Test_UpdateCar()
+        {
             
         }
 
