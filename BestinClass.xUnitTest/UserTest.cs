@@ -125,15 +125,42 @@ namespace BestinClass.xUnitTest
         [Fact]
         public void TestRegisterUser()
         {
-
+            userService.RegisterUser("ggfgrd", "8hhtg5644");
+            foreach (var user in userService.GetAllUsers())
+            {
+                if (user.Username == "ggfgrd")
+                {
+                    Assert.NotNull(userService.GetUserById(user.Id));
+                }
+            }
         }
-        #endregion
 
-        #region CreatePasswordHashTests
         [Fact]
-        public void TestCreatePasswordHash()
+        public void TestRegisterUserException()
         {
-            userService.CreatePasswordHash("gg5", new out byte[6], new out byte[7]);
+            //Password must contain atleast 1 number.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("ertyui", "ertyuiop"));
+
+            //Password must contain atleast 1 letter.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("ertyui", "689485656"));
+
+            //Username must contain atleast 5 characters.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("erty", "6894fgh5656"));
+
+            //Username must contain less than 26 characters.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("ertyhertyhertyhertyhertyhk", "6894fgh5656"));
+            
+            //Password must contain atleast 8 characters.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("ert5kkpy", "i234567"));
+
+            //Password must contain less than 26 characters.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("ert5kkpy", "i234567890i234567890i23456"));
         }
         #endregion
     }

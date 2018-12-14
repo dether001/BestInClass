@@ -66,7 +66,7 @@ namespace BestinClass.Core.Application_Service.Impl
 
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            if(password == null || password.Length < 5 || password.Length > 25)
+            if(password == null || password.Length < 8 || password.Length > 25)
                 { throw new InvalidDataException("Password must be between 4 and 26 characters."); }
             if (!password.Any(n => char.IsDigit(n)) || !password.Any(n => char.IsLetter(n)))
                 { throw new InvalidDataException("Password must contain atleast 1 number and letter."); }
@@ -84,7 +84,7 @@ namespace BestinClass.Core.Application_Service.Impl
                 { throw new InvalidDataException("Password must contain atleast 1 number and letter."); }
             if (username.Length < 5 || username.Length > 25)
                 { throw new InvalidDataException("Username must be between 4 and 26 characters."); }
-            if (password == null || password.Length < 5 || password.Length > 25)
+            if (password.Length < 8 || password.Length > 25)
                 { throw new InvalidDataException("Password must be between 4 and 26 characters."); }
 
             byte[] passwordHashReg, passwordSaltReg;
