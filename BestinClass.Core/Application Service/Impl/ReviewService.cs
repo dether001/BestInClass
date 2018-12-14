@@ -51,6 +51,11 @@ namespace BestinClass.Core.Application_Service.Impl
             return _reviewRepository.ReadReviewsByCarId(carId).ToList();
         }
 
+        public Review GetReviewByIdIncludeCar(int id)
+        {
+            return _reviewRepository.GetReviewByIdIncludeCar(id);
+        }
+
         public Review GetReviewById(int id)
         {
             return _reviewRepository.GetReviewById(id);

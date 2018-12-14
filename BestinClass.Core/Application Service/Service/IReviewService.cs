@@ -12,6 +12,7 @@ namespace BestinClass.Core.Application_Service.Service
         //READ
         List<Review> GetAllReviews();
         List<Review> GetReviewsByCar(int carId);
+        Review GetReviewByIdIncludeCar(int id);
         Review GetReviewById(int id);
 
         //UPDATE

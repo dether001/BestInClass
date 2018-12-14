@@ -40,6 +40,13 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return _ctx.Review
                 .FirstOrDefault(r => r.Id == id);
         }
+        public Review GetReviewByIdIncludeCar(int id)
+        {
+            var currRev =_ctx.Review
+                .Include(r => r.Car)
+                .FirstOrDefault(r => r.Id == id);
+            return currRev;
+        }
 
         public Review UpdateReview(Review reviewUpdate)
         {

@@ -35,7 +35,7 @@ namespace BestinClass.RestApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Review> Get(int id)
         {
-            return _reviewService.GetReviewById(id);
+            return _reviewService.GetReviewByIdIncludeCar(id);
         }
         
         // POST api/review
