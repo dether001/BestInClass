@@ -7,7 +7,7 @@ namespace BestinClass.Core.Application_Service.Service
     public interface ICarService
     {
         //CREATE
-        Car NewCar(string make, string model, int year, string type, List<Review> reviews);
+        Car NewCar(string make, string model, int year, string type, List<Review> reviews, string picture);
         Car CreateCar(Car car);
         
         //READ
