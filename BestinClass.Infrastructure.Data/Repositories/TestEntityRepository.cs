@@ -42,8 +42,10 @@ namespace BestinClass.Infrastructure.Data.Repositories
 
         public TestEntity DeleteTestEntity(int id)
         {
-            var removed = _ctx.Remove(new TestEntity {Id = id}).Entity;
+            var removed = _ctx.TestEntity.FirstOrDefault(c => c.Id == id);
+            _ctx.Remove(removed);
             _ctx.SaveChanges();
-            return removed;        }
+            return removed;
+        }
     }
 }

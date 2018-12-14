@@ -42,7 +42,8 @@ namespace BestinClass.Infrastructure.Data.Repositories
 
         public News DeleteNews(int id)
         {
-            var removed = _ctx.Remove(new News {Id = id}).Entity;
+            var removed = _ctx.News.FirstOrDefault(c => c.Id == id);
+            _ctx.Remove(removed);
             _ctx.SaveChanges();
             return removed;
         }

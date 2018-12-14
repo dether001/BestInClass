@@ -48,14 +48,16 @@ namespace BestinClass.Infrastructure.Data.Repositories
 
         public Car UpdateCar(Car carUpdate)
         {
-            _ctx.Attach(carUpdate).State = EntityState.Added;
+            _ctx.Attach(carUpdate).State = EntityState.Modified;
+            //_ctx.Update<Car>(carUpdate);
             _ctx.SaveChanges();
             return carUpdate;
         }
 
         public Car DeleteCar(int id)
         {
-            var removed = _ctx.Remove(new Car {Id = id}).Entity;
+            var removed = _ctx.Car.FirstOrDefault(c => c.Id == id);
+            _ctx.Remove(removed);
             _ctx.SaveChanges();
             return removed;
         }
