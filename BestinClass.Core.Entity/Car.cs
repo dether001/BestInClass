@@ -10,6 +10,7 @@ namespace BestinClass.Core.Entity
         public string Model { get; set; }
         public int Year { get; set; }
         public string Type { get; set; }
+        public string Picture { get; set; }
         public List<Review> Reviews { get; set; }
     }
 }
