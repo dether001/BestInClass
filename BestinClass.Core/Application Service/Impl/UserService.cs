@@ -81,7 +81,7 @@ namespace BestinClass.Core.Application_Service.Impl
         public void RegisterUser(string username, string password)
         {
             if (!password.Any(n => char.IsDigit(n)) || !password.Any(n => char.IsLetter(n)))
-                { throw new InvalidDataException("Password must contain atleast 1 number and letter."); }
+                { throw new InvalidDataException("Password must contain at least 1 number and letter."); }
             if (username.Length < 5 || username.Length > 25)
                 { throw new InvalidDataException("Username must be between 4 and 26 characters."); }
             if (password == null || password.Length < 5 || password.Length > 25)
