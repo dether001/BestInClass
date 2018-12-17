@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace BestinClass.xUnitTest
+namespace BestinClass.XUnitTest
 {
     public class UserTest : IDisposable
     {
@@ -109,7 +109,7 @@ namespace BestinClass.xUnitTest
             userService.DeleteUser(created.Id);
             Assert.Throws<FileNotFoundException>(
                 () => userService.GetUserById(created.Id));
-            
+
         }
         #endregion
 
@@ -126,14 +126,6 @@ namespace BestinClass.xUnitTest
         public void TestRegisterUser()
         {
 
-        }
-        #endregion
-
-        #region CreatePasswordHashTests
-        [Fact]
-        public void TestCreatePasswordHash()
-        {
-            userService.CreatePasswordHash("gg5", new out byte[6], new out byte[7]);
         }
         #endregion
     }

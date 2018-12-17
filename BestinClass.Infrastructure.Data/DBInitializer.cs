@@ -36,7 +36,6 @@ namespace BestinClass.Infrastructure.Data
             {
                 Header = "Cool daily driver",
                 Body = "Used it for a few years, holds up good as new!",
-                Car = null,
                 RatingEveryday = 5,
                 RatingExterior = 4,
                 RatingInterior = 3,
