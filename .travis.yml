@@ -13,4 +13,4 @@ branches:
 
 script:
 - dotnet build
-- dotnet test Testing/BestinClass.XUnitTest.csproj
+- dotnet test BestinClass.xUnitTest/BestinClass.xUnitTest.csproj
