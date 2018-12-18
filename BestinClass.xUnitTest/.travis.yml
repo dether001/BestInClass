@@ -1,0 +1,15 @@
+language: csharp
+mono: none
+dotnet: 2.2
+dist: xenial
+
+install:
+- dotnet restore
+
+branches:
+  only:
+  - development
+
+script:
+- dotnet build
+- dotnet test Testing/BestinClass.XUnitTest.csproj
