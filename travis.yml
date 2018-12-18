@@ -9,7 +9,7 @@ install:
 
 branches:
   only:
-  - development
+  - master
 
 script:
 - dotnet build
