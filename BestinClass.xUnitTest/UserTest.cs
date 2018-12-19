@@ -90,9 +90,10 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void Test_GetAllUsersExceptions()
         {
-            //DBIntitalizer users
-            userService.DeleteUser(1);
-            userService.DeleteUser(2);
+            foreach (var user in userService.GetAllUsers())
+            {
+                userService.DeleteUser(user.Id);
+            }
 
             Assert.Throws<FileNotFoundException>(
                 () => userService.GetAllUsers());
@@ -125,7 +126,35 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void TestRegisterUser()
         {
+            userService.RegisterUser("gfgfg", "gffg23233");
+            foreach (var item in userService.GetAllUsers())
+            {
+                if (item.Username == "gfgfg")
+                {
+                    Assert.Contains("gfgfg", item.Username);
+                }
+            }
+        }
 
+        [Fact]
+        public void TestRegisterUserExceptions()
+        {
+            //Password must hold atleast 1 number and letter.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("gfgfg", "gffgh"));
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("gfgfg", "23233"));
+
+            //Password & username must be inbetween 4 and 26 characters.
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("gfgfg", "g2"));
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("gfff", "gffg23233"));
+
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("gfgfg", "i234567890i234567890i123456"));
+            Assert.Throws<InvalidDataException>(
+                () => userService.RegisterUser("i234567890i234567890i123456", "gffg23233"));
         }
         #endregion
     }
