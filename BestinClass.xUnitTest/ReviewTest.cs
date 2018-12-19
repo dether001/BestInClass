@@ -46,12 +46,9 @@ namespace BestinClass.XUnitTest
         public void Test_CreateReview()
         {
             var car = carService.CreateCar(carService.NewCar("ff", "ff", 2000, "ggh", null, "gg"));
-
-            var review = reviewService.CreateReview(new Review {
-                Body = "fg", Header = "hgfffd", Car = car, RatingEveryday = 1, RatingExterior = 2,
-                RatingInterior = 1, RatingOverall = 1, RatingPracticality = 1, RatingWeekend = 1
-            });
-
+            var review = reviewService.CreateReview(
+                reviewService.NewReview(car, "fg", "hgfffd", 1, 2, 1, 1, 1));
+            
             Assert.Contains(review, reviewService.GetAllReviews());
         }
 
@@ -81,11 +78,9 @@ namespace BestinClass.XUnitTest
         public void Test_GetReview()
         {
             var car = carService.CreateCar(carService.NewCar("ff", "ff", 2000, "ggh", null, "gg"));
+            var review = reviewService.CreateReview(
+                reviewService.NewReview(car, "fg", "hgfffd", 1, 2, 1, 1, 1));
 
-            var review = reviewService.CreateReview(new Review {
-                Body = "fg", Header = "hgfffd", Car = car, RatingEveryday = 1, RatingExterior = 2,
-                RatingInterior = 1, RatingOverall = 1, RatingPracticality = 1, RatingWeekend = 1
-            });
             Assert.Same(review, reviewService.GetReviewById(review.Id));
         }
 
@@ -102,26 +97,20 @@ namespace BestinClass.XUnitTest
         public void Test_GetAllReviews()
         {
             var car = carService.CreateCar(carService.NewCar("ff", "ff", 2000, "ggh", null, "gg"));
+            var review = reviewService.CreateReview(
+                reviewService.NewReview(car, "fg", "hgfffd", 1, 2, 1, 1, 1));
 
-            var review = reviewService.CreateReview(new Review {
-                Body = "fg", Header = "hgfffd", Car = car, RatingEveryday = 1, RatingExterior = 2,
-                RatingInterior = 1, RatingOverall = 1, RatingPracticality = 1, RatingWeekend = 1
-            });
             Assert.Contains(review, reviewService.GetAllReviews());
 
-            var review2 = reviewService.CreateReview(new Review
-            {
-                Body = "fg", Header = "hgfffd", Car = car, RatingEveryday = 1, RatingExterior = 2,
-                RatingInterior = 1, RatingOverall = 1, RatingPracticality = 1, RatingWeekend = 1
-            });
-            Assert.Contains(review, reviewService.GetAllReviews());
+            var review2 = reviewService.CreateReview(
+                reviewService.NewReview(car, "fg", "hgfffd", 1, 2, 1, 1, 1));
 
-            var review3 = reviewService.CreateReview(new Review
-            {
-                Body = "fg", Header = "hgfffd", Car = car, RatingEveryday = 1, RatingExterior = 2,
-                RatingInterior = 1, RatingOverall = 1, RatingPracticality = 1, RatingWeekend = 1
-            });
-            Assert.Contains(review, reviewService.GetAllReviews());
+            Assert.Contains(review2, reviewService.GetAllReviews());
+
+            var review3 = reviewService.CreateReview(
+                reviewService.NewReview(car, "fg", "hgfffd", 1, 2, 1, 1, 1));
+
+            Assert.Contains(review3, reviewService.GetAllReviews());
 
             reviewService.DeleteReview(review.Id);
             Assert.DoesNotContain(review, reviewService.GetAllReviews());
@@ -134,8 +123,7 @@ namespace BestinClass.XUnitTest
             {
                 reviewService.DeleteReview(review.Id);
             }
-
-            //While empty
+            
             Assert.Throws<FileNotFoundException>(
                 () => reviewService.GetAllReviews());
         }
@@ -146,11 +134,8 @@ namespace BestinClass.XUnitTest
         public void Test_DeleteReview()
         {
             var car = carService.CreateCar(carService.NewCar("ff", "ff", 2000, "ggh", null, "gg"));
-            var review = reviewService.CreateReview(new Review
-            {
-                Body = "fg", Header = "hgfffd", Car = car, RatingEveryday = 1, RatingExterior = 2,
-                RatingInterior = 1, RatingOverall = 1, RatingPracticality = 1, RatingWeekend = 1
-            });
+            var review = reviewService.CreateReview(
+                reviewService.NewReview(car, "fg", "hgfffd", 1, 2, 1, 1, 1));
 
             Assert.Contains(review, reviewService.GetAllReviews());
             reviewService.DeleteReview(review.Id);
