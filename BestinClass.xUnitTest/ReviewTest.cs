@@ -45,23 +45,6 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void Test_CreateReview()
         {
-            //I can't seem to find a way to properly create a review for testing.
-
-            var re = new Review
-            {
-                Body = "f",
-                Car = null,
-                Header = "",
-                RatingEveryday = 1,
-                RatingExterior = 2,
-                RatingInterior = 1,
-                RatingOverall = 1,
-                RatingPracticality = 1,
-                RatingWeekend = 1
-            };
-
-            reviewService.CreateReview(re);
-
             var car = carService.CreateCar(
                 carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
             var review = reviewService.CreateReview(
@@ -72,7 +55,8 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void Test_CreateReviewExceptions()
         {
-            Car car = reviewService.GetAllReviews().First().Car;
+            var car = carService.CreateCar(
+                carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
             Assert.Throws<InvalidDataException>(
                 () => reviewService.CreateReview(reviewService.NewReview(car, "", "g", 1, 1, 1, 1, 1)));
             Assert.Throws<InvalidDataException>(
@@ -94,9 +78,11 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void Test_GetReview()
         {
-            Car car = reviewService.GetAllReviews().First().Car;
-            var created = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Same(created, reviewService.GetReviewById(created.Id));
+            var car = carService.CreateCar(
+                carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
+            var review = reviewService.CreateReview(
+                reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
+            Assert.Same(review, reviewService.GetReviewById(review.Id));
         }
 
         [Fact]
@@ -111,18 +97,26 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void Test_GetAllReviews()
         {
-            Car car = reviewService.GetAllReviews().First().Car;
+            var car = carService.CreateCar(
+                carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
             var created = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
             Assert.Contains(created, reviewService.GetAllReviews());
             var created2 = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
             Assert.Contains(created2, reviewService.GetAllReviews());
             var created3 = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
             Assert.Contains(created3, reviewService.GetAllReviews());
+
+            reviewService.DeleteReview(created.Id);
+            Assert.DoesNotContain(created, reviewService.GetAllReviews());
         }
 
         [Fact]
         public void Test_GetAllReviewsExceptions()
         {
+            foreach (var review in reviewService.GetAllReviews())
+            {
+                reviewService.DeleteReview(review.Id);
+            }
             Assert.Throws<FileNotFoundException>(
                 () => reviewService.GetAllReviews());
         }
@@ -132,13 +126,14 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void Test_DeleteReview()
         {
-            Car car = reviewService.GetAllReviews().First().Car;
-            var created = reviewService.CreateReview
-                (reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Contains(created, reviewService.GetAllReviews());
-            reviewService.DeleteReview(created.Id);
+            var car = carService.CreateCar(
+                carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
+            var review = reviewService.CreateReview(
+                reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
+            Assert.Contains(review, reviewService.GetAllReviews());
+            reviewService.DeleteReview(review.Id);
             Assert.Throws<FileNotFoundException>(
-                () => reviewService.GetReviewById(created.Id));
+                () => reviewService.GetReviewById(review.Id));
         }
         #endregion
 

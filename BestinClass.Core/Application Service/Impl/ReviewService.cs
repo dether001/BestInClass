@@ -23,6 +23,7 @@ namespace BestinClass.Core.Application_Service.Impl
             {
                 Header = header,
                 Body = body,
+                Car = car,
                 RatingEveryday = ratingEveryday,
                 RatingWeekend = ratingWeekend,
                 RatingPracticality = ratingPracticality,

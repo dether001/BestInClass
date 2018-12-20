@@ -125,7 +125,14 @@ namespace BestinClass.XUnitTest
         [Fact]
         public void TestRegisterUser()
         {
-
+            userService.RegisterUser("gghgg", "i12345");
+            foreach (var user in userService.GetAllUsers())
+            {
+                if (user.Username == "gghgg")
+                {
+                    Assert.Same(userService.GetUserById(user.Id).Username, user.Username);
+                }
+            }
         }
         #endregion
     }
