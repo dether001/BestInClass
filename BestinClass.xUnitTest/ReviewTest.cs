@@ -66,7 +66,7 @@ namespace BestinClass.XUnitTest
                 carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
             var review = reviewService.CreateReview(
                 reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Same(re, reviewService.GetReviewById(review.Id));
+            Assert.Same(review, reviewService.GetReviewById(review.Id));
         }
 
         [Fact]
