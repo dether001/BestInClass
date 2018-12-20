@@ -48,11 +48,12 @@ namespace BestinClass.Core.Application_Service.Impl
             return _newsRepository.CreateNews(news);
         }
 
-        public List<News> GetAllNews()
+        public FilteredList<News> GetAllNews(PageFilter filter = null)
         {
-            if (_newsRepository.ReadAllNews().Count() < 1)
+            if (_newsRepository.ReadAllNews(filter).Count < 1)
                 { throw new FileNotFoundException("Database is empty."); }
-            return _newsRepository.ReadAllNews().ToList();
+
+            return _newsRepository.ReadAllNews(filter);
         }
 
         public News GetNewsById(int id)

@@ -41,9 +41,9 @@ namespace BestinClass.Core.Application_Service.Impl
             return _reviewRepository.CreateReview(review);
         }
 
-        public List<Review> GetAllReviews()
+        public FilteredList<Review> GetAllReviews(PageFilter filter = null)
         {
-            return _reviewRepository.ReadAllReviews().ToList();
+            return _reviewRepository.ReadAllReviews(filter);
         }
 
         public List<Review> GetReviewsByCar(int carId)
@@ -64,6 +64,11 @@ namespace BestinClass.Core.Application_Service.Impl
         public void DeleteReview(int id)
         {
             _reviewRepository.DeleteReview(id);
+        }
+
+        public Review GetReviewByIdIncludeCar(int id)
+        {
+            return _reviewRepository.GetReviewByIdIncludeCar(id);
         }
     }
 }

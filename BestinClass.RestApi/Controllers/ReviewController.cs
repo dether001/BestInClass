@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BestinClass.Core.Application_Service.Service;
 using BestinClass.Core.Entity;
@@ -18,24 +19,30 @@ namespace BestinClass.RestApi.Controllers
         
         // GET api/review
         [HttpGet]
-        public ActionResult<IEnumerable<Review>> Get()
+        public ActionResult<IEnumerable<Review>> Get([FromQuery] PageFilter filter)
         {
-            return _reviewService.GetAllReviews();
+            try
+            {
+                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+                {
+                    var list = _reviewService.GetAllReviews(null);
+                    return Ok(list);
+                }
+                else
+                {
+                    var list = _reviewService.GetAllReviews(filter);
+                    return Ok(list);
+                }
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
-
-//        // GET api/review/carId=3
-//        [HttpGet("carId={id}")]
-//        public ActionResult<IEnumerable<Review>> Get(float carId)
-//        {
-//            int carToGet = (int) carId;
-//            return _reviewService.GetReviewsByCar(carToGet);
-//        }
-        
-        // GET api/review/2
         [HttpGet("{id}")]
         public ActionResult<Review> Get(int id)
         {
-            return _reviewService.GetReviewById(id);
+            return _reviewService.GetReviewByIdIncludeCar(id);
         }
         
         // POST api/review

@@ -9,9 +9,10 @@ namespace BestinClass.Core.Domain_Service
         Review CreateReview(Review review);
 
         //READ
-        IEnumerable<Review> ReadAllReviews();
+        FilteredList<Review> ReadAllReviews(PageFilter filter);
         IEnumerable<Review> ReadReviewsByCarId(int carId);
         Review GetReviewById(int id);
+        Review GetReviewByIdIncludeCar(int id);
 
         //UPDATE
         Review UpdateReview(Review reviewUpdate);

@@ -24,9 +24,23 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return saved;
         }
 
-        public IEnumerable<Review> ReadAllReviews()
+        public FilteredList<Review> ReadAllReviews(PageFilter filter)
         {
-            return _ctx.Review;
+            var filteredList = new FilteredList<Review>();
+
+            if(filter != null && filter.ItemsPrPage > 0 && filter.CurrentPage > 0)
+            {
+                filteredList.List = _ctx.Review
+                    .Include(r => r.Car)
+                    .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
+                    .Take(filter.ItemsPrPage);
+                filteredList.Count = _ctx.Review.Count();
+                return filteredList;
+            }
+
+            filteredList.List = _ctx.Review.Include(r => r.Car);
+            filteredList.Count = _ctx.Review.Count();
+            return filteredList;
         }
 
         public IEnumerable<Review> ReadReviewsByCarId(int carId)
@@ -39,6 +53,14 @@ namespace BestinClass.Infrastructure.Data.Repositories
         {
             return _ctx.Review
                 .FirstOrDefault(r => r.Id == id);
+        }
+
+        public Review GetReviewByIdIncludeCar(int id)
+        {
+            var currRev = _ctx.Review
+                .Include(r => r.Car)
+                .FirstOrDefault(c => c.Id == id);
+            return currRev;
         }
 
         public Review UpdateReview(Review reviewUpdate)

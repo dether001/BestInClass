@@ -10,9 +10,10 @@ namespace BestinClass.Core.Application_Service.Service
         Review CreateReview(Review review);
         
         //READ
-        List<Review> GetAllReviews();
+        FilteredList<Review> GetAllReviews(PageFilter filter);
         List<Review> GetReviewsByCar(int carId);
         Review GetReviewById(int id);
+        Review GetReviewByIdIncludeCar(int id);
 
         //UPDATE
         Review UpdateReview(Review reviewUpdate);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BestinClass.Core.Application_Service.Impl;
@@ -20,9 +21,25 @@ namespace BestinClass.RestApi.Controllers
 
         // GET api/news
         [HttpGet]
-        public ActionResult<IEnumerable<News>> Get()
+        public ActionResult<IEnumerable<News>> Get([FromQuery] PageFilter filter)
         {
-            return _newsService.GetAllNews();
+            try
+            {
+                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+                {
+                    var list = _newsService.GetAllNews(null);
+                    return Ok(list);
+                }
+                else
+                {
+                    var list = _newsService.GetAllNews(filter);
+                    return Ok(list);
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         // GET api/news/2

@@ -9,7 +9,7 @@ namespace BestinClass.Core.Domain_Service
         News CreateNews(News news);
 
         //READ
-        IEnumerable<News> ReadAllNews();
+        FilteredList<News> ReadAllNews(PageFilter filter);
 
         News GetNewsById(int id);
 
