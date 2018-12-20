@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using BestinClass.Core.Application_Service.Service;
 using BestinClass.Core.Domain_Service;
@@ -22,6 +23,7 @@ namespace BestinClass.Core.Application_Service.Impl
             {
                 Header = header,
                 Body = body,
+                Car = car,
                 RatingEveryday = ratingEveryday,
                 RatingWeekend = ratingWeekend,
                 RatingPracticality = ratingPracticality,
@@ -35,6 +37,14 @@ namespace BestinClass.Core.Application_Service.Impl
 
         public Review CreateReview(Review review)
         {
+            if (review.Header.Length < 1)
+                { throw new InvalidDataException("To create review, a header must be attached."); }
+            if (review.Body.Length < 1)
+                { throw new InvalidDataException("To create review, a body must be attached."); }
+            if (review.RatingEveryday < 0 || review.RatingExterior < 0 || review.RatingInterior < 0 ||
+                review.RatingOverall < 0 || review.RatingPracticality < 0 || review.RatingWeekend < 0)
+                { throw new InvalidDataException("Review ratings can't be below 0."); }
+
             float allRatings = (review.RatingEveryday + review.RatingWeekend + review.RatingPracticality +
                                 review.RatingExterior + review.RatingInterior);
             review.RatingOverall = allRatings / 5;
@@ -43,6 +53,8 @@ namespace BestinClass.Core.Application_Service.Impl
 
         public FilteredList<Review> GetAllReviews(PageFilter filter = null)
         {
+            if (_reviewRepository.ReadAllReviews(filter).Count < 1)
+            { throw new FileNotFoundException("Database is empty."); }
             return _reviewRepository.ReadAllReviews(filter);
         }
 
@@ -51,8 +63,15 @@ namespace BestinClass.Core.Application_Service.Impl
             return _reviewRepository.ReadReviewsByCarId(carId).ToList();
         }
 
+        public Review GetReviewByIdIncludeCar(int id)
+        {
+            return _reviewRepository.GetReviewByIdIncludeCar(id);
+        }
+
         public Review GetReviewById(int id)
         {
+            if (_reviewRepository.GetReviewById(id) == null)
+            { throw new FileNotFoundException("No match were found."); }
             return _reviewRepository.GetReviewById(id);
         }
 
@@ -63,12 +82,10 @@ namespace BestinClass.Core.Application_Service.Impl
 
         public void DeleteReview(int id)
         {
-            _reviewRepository.DeleteReview(id);
-        }
+            if (_reviewRepository.GetReviewById(id) == null)
+            { throw new FileNotFoundException("No match were found."); }
 
-        public Review GetReviewByIdIncludeCar(int id)
-        {
-            return _reviewRepository.GetReviewByIdIncludeCar(id);
+            _reviewRepository.DeleteReview(id);
         }
     }
 }

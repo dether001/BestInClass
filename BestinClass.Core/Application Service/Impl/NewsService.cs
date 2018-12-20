@@ -10,9 +10,8 @@ namespace BestinClass.Core.Application_Service.Impl
 {
     public class NewsService : INewsService
     {
-        Uri uriResult;
         private readonly INewsRepository _newsRepository;
-
+        
         public NewsService(INewsRepository newsRepository)
         {
             _newsRepository = newsRepository;
@@ -52,7 +51,6 @@ namespace BestinClass.Core.Application_Service.Impl
         {
             if (_newsRepository.ReadAllNews(filter).Count < 1)
                 { throw new FileNotFoundException("Database is empty."); }
-
             return _newsRepository.ReadAllNews(filter);
         }
 
@@ -60,6 +58,7 @@ namespace BestinClass.Core.Application_Service.Impl
         {
             if (_newsRepository.GetNewsById(id) == null)
                 { throw new FileNotFoundException("Database found no match."); }
+
             return _newsRepository.GetNewsById(id);
         }
 
@@ -72,6 +71,7 @@ namespace BestinClass.Core.Application_Service.Impl
         {
             if (_newsRepository.GetNewsById(id) == null)
             { throw new FileNotFoundException("Database has no match."); }
+
             _newsRepository.DeleteNews(id);
         }
     }

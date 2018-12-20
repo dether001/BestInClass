@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace BestinClass.xUnitTest
+namespace BestinClass.XUnitTest
 {
     public class NewsTest : IDisposable
     {
@@ -98,6 +98,10 @@ namespace BestinClass.xUnitTest
         [Fact]
         public void Test_GetAllNewsExceptions()
         {
+            foreach (var news in newsService.GetAllNews())
+            {
+                newsService.DeleteNews(news.Id);
+            }
             Assert.Throws<FileNotFoundException>(
                 () => newsService.GetAllNews());
         }
