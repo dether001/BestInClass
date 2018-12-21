@@ -19,7 +19,6 @@ namespace BestinClass.RestApi.Controllers
         }
         
         //GET api/user
-        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public ActionResult<IEnumerable<User>> Get()
         {

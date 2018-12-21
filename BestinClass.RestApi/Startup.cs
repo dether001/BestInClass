@@ -53,7 +53,7 @@ namespace BestinClass.RestApi
             {
                 services.AddDbContext<BestinClassContext>(
                     opt => opt
-                        .UseSqlServer(_conf.GetConnectionString("Data Source=tcp:dicdb.database.windows.net,1433;Initial Catalog=BiCDB;User ID=dicadmin;Password=Bestinadmin1")));
+                        .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

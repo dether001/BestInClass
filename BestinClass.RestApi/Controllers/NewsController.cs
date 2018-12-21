@@ -51,7 +51,6 @@ namespace BestinClass.RestApi.Controllers
         }
         
         // POST api/news
-        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult<News> Post([FromBody] News news)
         {
@@ -59,7 +58,6 @@ namespace BestinClass.RestApi.Controllers
         }
         
         // PUT api/news/3
-        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] News newsUpdate)
         {
@@ -67,7 +65,6 @@ namespace BestinClass.RestApi.Controllers
         }
         
         // DELETE api/news/4
-        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
