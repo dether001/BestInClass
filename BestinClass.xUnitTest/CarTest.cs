@@ -40,7 +40,7 @@ namespace BestinClass.XUnitTest
         }
 
         [Fact]
-        public void TestGetCarByIdExceptions()
+        public void Test_GetCarByIdExceptions()
         {
             Assert.Throws<FileNotFoundException>(
                 () => carService.GetCarById(965656666));
