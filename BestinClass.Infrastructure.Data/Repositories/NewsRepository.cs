@@ -48,7 +48,7 @@ namespace BestinClass.Infrastructure.Data.Repositories
 
         public News UpdateNews(News newsUpdate)
         {
-            _ctx.Attach(newsUpdate).State = EntityState.Added;
+            _ctx.Attach(newsUpdate).State = EntityState.Modified;
             _ctx.SaveChanges();
             return newsUpdate;
         }
