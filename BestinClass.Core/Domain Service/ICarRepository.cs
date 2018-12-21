@@ -15,7 +15,6 @@ namespace BestinClass.Core.Domain_Service
 
         //UPDATE
         Car UpdateCar(Car carUpdate);
-        Car AddReviewToCar(int id, Review review);
 
         //DELETE
         Car DeleteCar(int id);

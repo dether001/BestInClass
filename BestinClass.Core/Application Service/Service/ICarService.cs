@@ -17,7 +17,6 @@ namespace BestinClass.Core.Application_Service.Service
 
         //UPDATE
         Car UpdateCar(Car carUpdate);
-        Car AddReviewToCar(int id, Review review);
 
         //DELETE
         void DeleteCar(int id);

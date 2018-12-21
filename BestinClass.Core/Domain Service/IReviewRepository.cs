@@ -11,7 +11,6 @@ namespace BestinClass.Core.Domain_Service
         //READ
         FilteredList<Review> ReadAllReviews(PageFilter filter);
         Review GetReviewByIdIncludeCar(int id);
-        IEnumerable<Review> ReadReviewsByCarId(int carId);
         Review GetReviewById(int id);
 
         //UPDATE

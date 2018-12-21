@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BestinClass.Core.Application_Service.Service;
 using BestinClass.Core.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BestinClass.RestApi.Controllers
@@ -48,6 +49,7 @@ namespace BestinClass.RestApi.Controllers
         }
         
         // POST api/car
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         public ActionResult<Car> Post([FromBody] Car car)
         {
@@ -55,6 +57,7 @@ namespace BestinClass.RestApi.Controllers
         }
         
         // PUT api/car/3
+        [Authorize(Roles = "Administrator")]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Car carUpdate)
         {
@@ -62,6 +65,7 @@ namespace BestinClass.RestApi.Controllers
         }
         
         // DELETE api/car/4
+        [Authorize(Roles = "Administrator")]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

@@ -48,11 +48,6 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return currCar;
         }
 
-        public Car AddReviewToCar(int id, Review review)
-        {
-            return null;
-        }
-
         public Car GetCarById(int id)
         {
             return _ctx.Car

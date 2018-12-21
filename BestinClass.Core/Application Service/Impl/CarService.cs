@@ -70,11 +70,6 @@ namespace BestinClass.Core.Application_Service.Impl
             return _carRepository.UpdateCar(carUpdate);
         }
 
-        public Car AddReviewToCar(int id, Review review)
-        {
-            return _carRepository.AddReviewToCar(id, review);
-        }
-
         public void DeleteCar(int id)
         {
             if (_carRepository.GetCarById(id) == null)

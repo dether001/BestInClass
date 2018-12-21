@@ -43,12 +43,6 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return filteredList;
         }
 
-        public IEnumerable<Review> ReadReviewsByCarId(int carId)
-        {
-            return _ctx.Review;
-            //.Where(r => r.CarId == carId);
-        }
-
         public Review GetReviewById(int id)
         {
             return _ctx.Review

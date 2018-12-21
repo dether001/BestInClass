@@ -123,7 +123,7 @@ namespace BestinClass.RestApi
                 }
                 app.UseHsts();
             }
-            //app.UseCors("AllowSpecificOrigin");
+            app.UseCors("AllowSpecificOrigin");
             app.UseCors("AllowAnyOrigin");
             app.UseAuthentication();
             app.UseMvc();
