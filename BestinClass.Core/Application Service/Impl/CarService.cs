@@ -46,7 +46,7 @@ namespace BestinClass.Core.Application_Service.Impl
             return _carRepository.CreateCar(car);
         }
         
-        public FilteredList<Car> GetAllCars(PageFilter filter)
+        public FilteredList<Car> GetAllCars(PageFilter filter = null)
         {
             if(_carRepository.ReadAllCars(filter).Count < 1)
                 { throw new FileNotFoundException("Database is empty."); }
