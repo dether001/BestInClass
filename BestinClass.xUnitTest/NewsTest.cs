@@ -87,18 +87,18 @@ namespace BestinClass.XUnitTest
         public void Test_GetAllNews()
         {
             var created = newsService.CreateNews(newsService.NewNews("k", "g", "f", "t", "d"));
-            Assert.Contains(created, newsService.GetAllNews());
+            Assert.Contains(created, newsService.GetAllNews().List);
             var created2 = newsService.CreateNews(newsService.NewNews("k", "g", "f", "t", "d"));
-            Assert.Contains(created2, newsService.GetAllNews());
+            Assert.Contains(created2, newsService.GetAllNews().List);
             var created3 = newsService.CreateNews(newsService.NewNews("k", "g", "f", "t", "d"));
-            Assert.Contains(created3, newsService.GetAllNews());
+            Assert.Contains(created3, newsService.GetAllNews().List);
 
         }
 
         [Fact]
         public void Test_GetAllNewsExceptions()
         {
-            foreach (var news in newsService.GetAllNews())
+            foreach (var news in newsService.GetAllNews().List)
             {
                 newsService.DeleteNews(news.Id);
             }
@@ -113,7 +113,7 @@ namespace BestinClass.XUnitTest
         {
             var created = newsService.CreateNews
                 (newsService.NewNews("lp", "fn", "jh", "yg", "a"));
-            Assert.Contains(created, newsService.GetAllNews());
+            Assert.Contains(created, newsService.GetAllNews().List);
             newsService.DeleteNews(created.Id);
             Assert.Throws<FileNotFoundException>(
                 () => newsService.GetNewsById(created.Id));

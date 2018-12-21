@@ -100,20 +100,20 @@ namespace BestinClass.XUnitTest
             var car = carService.CreateCar(
                 carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
             var created = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Contains(created, reviewService.GetAllReviews());
+            Assert.Contains(created, reviewService.GetAllReviews().List);
             var created2 = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Contains(created2, reviewService.GetAllReviews());
+            Assert.Contains(created2, reviewService.GetAllReviews().List);
             var created3 = reviewService.CreateReview(reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Contains(created3, reviewService.GetAllReviews());
+            Assert.Contains(created3, reviewService.GetAllReviews().List);
 
             reviewService.DeleteReview(created.Id);
-            Assert.DoesNotContain(created, reviewService.GetAllReviews());
+            Assert.DoesNotContain(created, reviewService.GetAllReviews().List);
         }
 
         [Fact]
         public void Test_GetAllReviewsExceptions()
         {
-            foreach (var review in reviewService.GetAllReviews())
+            foreach (var review in reviewService.GetAllReviews().List)
             {
                 reviewService.DeleteReview(review.Id);
             }
@@ -130,7 +130,7 @@ namespace BestinClass.XUnitTest
                 carService.NewCar("dfkkmghj", "fdghdf", 1995, "sdfghjk", null, "dfghj"));
             var review = reviewService.CreateReview(
                 reviewService.NewReview(car, "g", "g", 5, 5, 5, 5, 5));
-            Assert.Contains(review, reviewService.GetAllReviews());
+            Assert.Contains(review, reviewService.GetAllReviews().List);
             reviewService.DeleteReview(review.Id);
             Assert.Throws<FileNotFoundException>(
                 () => reviewService.GetReviewById(review.Id));

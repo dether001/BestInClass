@@ -52,13 +52,13 @@ namespace BestinClass.XUnitTest
         public void Test_GetAllCars()
         {
             var created = carService.CreateCar(carService.NewCar("h", "f", 1995, "kmlmklkl", null, "glmlkmkl"));
-            Assert.Contains(created, carService.GetAllCars());
+            Assert.Contains(created, carService.GetAllCars().List);
         }
 
         [Fact]
         public void Test_GetAllCarsExceptions()
         {
-            foreach (var item in carService.GetAllCars())
+            foreach (var item in carService.GetAllCars().List)
             {
                 carService.DeleteCar(item.Id);
             }
@@ -114,7 +114,7 @@ namespace BestinClass.XUnitTest
         {
             var created = carService.CreateCar(
                 carService.NewCar("kkkkkk", "kkkkkk", 2000, "kkkkkk", null, "fvfdv"));
-            Assert.Contains(created, carService.GetAllCars());
+            Assert.Contains(created, carService.GetAllCars().List);
             carService.DeleteCar(created.Id);
             Assert.Throws<FileNotFoundException>(
                 () => carService.GetCarById(created.Id));
