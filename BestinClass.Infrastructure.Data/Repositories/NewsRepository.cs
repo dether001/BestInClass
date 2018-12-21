@@ -22,9 +22,22 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return news;
         }
 
-        public IEnumerable<News> ReadAllNews()
+        public FilteredList<News> ReadAllNews(PageFilter filter)
         {
-            return _ctx.News;
+            var filteredList = new FilteredList<News>();
+
+            if (filter != null && filter.ItemsPrPage > 0 && filter.CurrentPage > 0)
+            {
+                filteredList.List = _ctx.News
+                    .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
+                    .Take(filter.ItemsPrPage);
+                filteredList.Count = _ctx.News.Count();
+                return filteredList;
+            }
+
+            filteredList.List = _ctx.News;
+            filteredList.Count = _ctx.News.Count();
+            return filteredList;
         }
 
         public News GetNewsById(int id)

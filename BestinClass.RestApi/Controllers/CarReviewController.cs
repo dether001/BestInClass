@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BestinClass.Core.Application_Service.Service;
 using BestinClass.Core.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BestinClass.RestApi.Controllers
@@ -17,8 +18,9 @@ namespace BestinClass.RestApi.Controllers
             _reviewService = reviewService;
             _carService = carService;
         }
-        
+
         // GET api/review/3
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<Review>> Get(int id)
         {

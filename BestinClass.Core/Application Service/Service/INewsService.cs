@@ -10,7 +10,7 @@ namespace BestinClass.Core.Application_Service.Service
         News CreateNews(News news);
         
         //READ
-        List<News> GetAllNews();
+        FilteredList<News> GetAllNews(PageFilter filter);
         News GetNewsById(int id);
 
         //UPDATE

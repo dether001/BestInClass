@@ -9,7 +9,7 @@ namespace BestinClass.Core.Domain_Service
         Car CreateCar(Car car);
 
         //READ
-        IEnumerable<Car> ReadAllCars();
+        FilteredList<Car> ReadAllCars(PageFilter filter);
         Car GetCarByIdIncludeReviews(int id);
         Car GetCarById(int id);
 

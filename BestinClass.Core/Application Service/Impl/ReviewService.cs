@@ -51,12 +51,11 @@ namespace BestinClass.Core.Application_Service.Impl
             return _reviewRepository.CreateReview(review);
         }
 
-        public List<Review> GetAllReviews()
+        public FilteredList<Review> GetAllReviews(PageFilter filter = null)
         {
-            if (_reviewRepository.ReadAllReviews().Count() < 1)
+            if (_reviewRepository.ReadAllReviews(filter).Count < 1)
             { throw new FileNotFoundException("Database is empty."); }
-
-            return _reviewRepository.ReadAllReviews().ToList();
+            return _reviewRepository.ReadAllReviews(filter);
         }
 
         public List<Review> GetReviewsByCar(int carId)

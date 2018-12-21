@@ -11,7 +11,7 @@ namespace BestinClass.Core.Application_Service.Service
         Car CreateCar(Car car);
         
         //READ
-        List<Car> GetAllCars();
+        FilteredList<Car> GetAllCars(PageFilter filter);
         Car GetCarById(int id);
         Car GetCarByIdIncludeReviews(int id);
 
