@@ -138,11 +138,13 @@ namespace BestinClass.XUnitTest
         #endregion
 
         #region UpdateReviewTests
+        /*
         [Fact]
         public void Test_UpdateReview()
         {
 
         }
+        */
         #endregion
     }
 }

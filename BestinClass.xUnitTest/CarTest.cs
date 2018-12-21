@@ -124,12 +124,12 @@ namespace BestinClass.XUnitTest
         #endregion
 
         #region UpdateCarTests
-        [Fact]
+        /*[Fact]
         public void Test_UpdateCar()
         {
 
         }
-
+        */
         #endregion
     }
 }
