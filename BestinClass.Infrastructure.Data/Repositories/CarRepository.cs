@@ -22,9 +22,23 @@ namespace BestinClass.Infrastructure.Data.Repositories
             return car;
         }
 
-        public IEnumerable<Car> ReadAllCars()
+        public FilteredList<Car> ReadAllCars(PageFilter filter)
         {
-            return _ctx.Car;
+            var filteredList = new FilteredList<Car>();
+
+            if (filter != null && filter.ItemsPrPage > 0 && filter.CurrentPage > 0)
+            {
+                filteredList.List = _ctx.Car
+                    .Include(r => r.Reviews.ToArray())
+                    .Skip((filter.CurrentPage - 1) * filter.ItemsPrPage)
+                    .Take(filter.ItemsPrPage);
+                filteredList.Count = _ctx.Car.Count();
+                return filteredList;
+            }
+
+            filteredList.List = _ctx.Car.Include(r => r.Reviews);
+            filteredList.Count = _ctx.Car.Count();
+            return filteredList;
         }
 
         public Car GetCarByIdIncludeReviews(int id)

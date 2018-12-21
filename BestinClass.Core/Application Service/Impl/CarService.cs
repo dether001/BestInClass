@@ -46,11 +46,11 @@ namespace BestinClass.Core.Application_Service.Impl
             return _carRepository.CreateCar(car);
         }
         
-        public List<Car> GetAllCars()
+        public FilteredList<Car> GetAllCars(PageFilter filter)
         {
-            if(_carRepository.ReadAllCars().Count() < 1)
+            if(_carRepository.ReadAllCars(filter).Count < 1)
                 { throw new FileNotFoundException("Database is empty."); }
-            return _carRepository.ReadAllCars().ToList();
+            return _carRepository.ReadAllCars(filter);
         }
 
         public Car GetCarById(int id)

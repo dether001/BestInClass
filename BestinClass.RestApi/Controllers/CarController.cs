@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using BestinClass.Core.Application_Service.Service;
 using BestinClass.Core.Entity;
@@ -18,9 +19,25 @@ namespace BestinClass.RestApi.Controllers
         
         //GET api/car
         [HttpGet]
-        public ActionResult<IEnumerable<Car>> Get()
+        public ActionResult<IEnumerable<Car>> Get([FromQuery] PageFilter filter)
         {
-            return _carService.GetAllCars();
+            try
+            {
+                if (filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+                {
+                    var list = _carService.GetAllCars(null);
+                    return Ok(list);
+                }
+                else
+                {
+                    var list = _carService.GetAllCars(filter);
+                    return Ok(list);
+                }
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
         
         // GET api/car/2
